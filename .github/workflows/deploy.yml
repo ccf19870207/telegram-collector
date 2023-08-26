@@ -1,0 +1,127 @@
+name: Update Gist Note
+on:
+  workflow_run:
+    workflows: ["Execute On Schedule", "Execute On Push"]
+    types:
+      - completed
+
+jobs:
+  update-gist-note:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Decode Strings
+        run: |
+          base64 -d ./protocols/reality > ./protocols/reality_decoded
+          base64 -d ./protocols/vless > ./protocols/vless_decoded
+          base64 -d ./protocols/vmess > ./protocols/vmess_decoded
+          base64 -d ./protocols/trojan > ./protocols/trojan_decoded
+          base64 -d ./protocols/shadowsocks > ./protocols/shadowsocks_decoded
+          base64 -d ./networks/grpc > ./networks/grpc_decoded
+          base64 -d ./networks/http > ./networks/http_decoded
+          base64 -d ./networks/ws > ./networks/ws_decoded
+          base64 -d ./networks/tcp > ./networks/tcp_decoded
+          base64 -d ./security/tls > ./security/tls_decoded
+        shell: bash
+
+      - name: Update TLS Note
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GIST_CNFG }}
+          gist_id: f20178ffe3a24f4dc441fbf06a6d313e
+          gist_description: "TLS Security Based Configuration"
+          gist_file_name: tls
+          file_path: ./security/tls_decoded
+          file_type: text
+
+      - name: Update TCP Note
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GIST_CNFG }}
+          gist_id: 8edb0914284d238939e36afb5bb33f92
+          gist_description: "TCP Network Based Configuration"
+          gist_file_name: tcp
+          file_path: ./networks/tcp_decoded
+          file_type: text
+          
+      - name: Update WS Note
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GIST_CNFG }}
+          gist_id: 41b97728dda8ee6fdd7c09c90e91bfe6
+          gist_description: "WS Network Based Configuration"
+          gist_file_name: ws
+          file_path: ./networks/ws_decoded
+          file_type: text
+          
+      - name: Update HTTP Note
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GIST_CNFG }}
+          gist_id: 34f9002c931c556c4c7c164259876146
+          gist_description: "HTTP Network Based Configuration"
+          gist_file_name: http
+          file_path: ./networks/http_decoded
+          file_type: text
+          
+      - name: Update GRPC Note
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GIST_CNFG }}
+          gist_id: 18d804aaad51f93993d73dfcc23c8dcf
+          gist_description: "GRPC Network Based Configuration"
+          gist_file_name: grpc
+          file_path: ./networks/grpc_decoded
+          file_type: text
+
+      - name: Update SHADOWSOCKS Note
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GIST_CNFG }}
+          gist_id: 93a0d5c53120b7bd5ba89a13cd13f7ae
+          gist_description: "SHADOWSOCKS Protocol Based Configuration"
+          gist_file_name: shadowsocks
+          file_path: ./protocols/shadowsocks_decoded
+          file_type: text
+          
+      - name: Update TROJAN Note
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GIST_CNFG }}
+          gist_id: f63d2c879638970038e744684628f828
+          gist_description: "TROJAN Protocol Based Configuration"
+          gist_file_name: trojan
+          file_path: ./protocols/trojan_decoded
+          file_type: text
+          
+      - name: Update VMESS Note
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GIST_CNFG }}
+          gist_id: 1e7b3a86d434bbb7885df2075d2ed9ad
+          gist_description: "VMESS Protocol Based Configuration"
+          gist_file_name: vmess
+          file_path: ./protocols/vmess_decoded
+          file_type: text
+          
+      - name: Update VLESS Note
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GIST_CNFG }}
+          gist_id: 8400ab5f0312e0b8294e1b1b5d1fcd5a
+          gist_description: "VLESS Protocol Based Configuration"
+          gist_file_name: vless
+          file_path: ./protocols/vless_decoded
+          file_type: text
+          
+      - name: Update REALITY Note
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GIST_CNFG }}
+          gist_id: 9a3d99055b1fb03eff84246f0151a0e0
+          gist_description: "REALITY Protocol Based Configuration"
+          gist_file_name: reality
+          file_path: ./protocols/reality_decoded
+          file_type: text
